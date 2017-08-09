@@ -94,8 +94,10 @@ function potx_drush_extract($mode = NULL) {
 
   if (!empty($modules_option)) {
     $modules = explode(',', $modules_option);
+
     foreach ($modules as $module) {
-      $files = array_merge($files, _potx_explore_dir(drupal_get_path('module', $module) . '/', '*', $api_option, TRUE));
+      $mod_pat = dirname(dirname(__DIR__)) . '/modules/' . $module;
+      $files = array_merge($files, _potx_explore_dir($mod_pat . '/', '*', $api_option, TRUE));
     }
   }
   elseif (!empty($files_option)) {
